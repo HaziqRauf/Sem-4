@@ -1,0 +1,508 @@
+<?php
+				include('config.php');
+				$result = mysql_query("SELECT * FROM reservation ORDER BY firstname ASC");
+				while($row = mysql_fetch_array($result))
+				{
+								echo '<tr class="record" id="'.$row['status'].'">';
+								echo '<td style="border-left: 1px solid #C1DAD7;">'.$row['confirmation'].'</td>';
+								echo '<td>'.$row['firstname'].' '.$row['lastname'].'</td>';
+								echo '<td><div align="right">'.$row['address'].'</div></td>';
+								echo '<td><div align="right">'.$row['contact'].'</div></td>';
+								echo '<td><div align="right">'.$row['email'].'</div></td>';
+								echo '<td><div align="right">'.$row['arrival'].'</div></td>';
+								echo '<td><div align="right">'.$row['departure'].'</div></td>';
+								echo '<td><div align="left">';
+								$rrr=$row['confirmation'];
+								$results = mysql_query("SELECT * FROM rooinventory where confirmation='$rrr'");
+				while($row1 = mysql_fetch_array($results))
+				{
+								$roomid=$row1['room'];
+								$resulta = mysql_query("SELECT * FROM internet_shop where id='$roomid'");
+								while($rowa = mysql_fetch_array($resulta))
+								{
+								echo $rowa['name'];
+								}
+								echo '&nbsp;&nbsp;&nbsp;'.$row1['qty'].'<br>';
+				}
+								echo '</div></td>';
+								echo '<td><div align="right">'.$row['status'].'</div></td>';
+								echo '<td><div align="center"><a href="#" id="'.$row['confirmation'].'" class="delbutton" title="Click To Delete">delete</a></div></td>';
+								echo '</tr>';
+				}
+?>
+
+
+
+<div class="container" style="float: right; width: 212px; padding-bottom: 15px;">
+			<span class="top-label">
+				<span class="label-txt">Personal Details</span>
+			</span>
+			<div class="content-area" style="border-radius:15px; padding-bottom: 25px;">
+				<div>
+					Firstname:<br>
+					<input type="text" name="fname" id="boxy" /><br>
+					lastname:<br>
+					<input type="text" name="lname" id="boxy" /><br>
+					Address:<br>
+					<input type="text" name="address" id="boxy" /><br>
+					City:<br>
+					<input type="text" name="city" id="boxy" /><br>
+					Country:<br>
+					<input type="text" name="country" id="boxy" /><br>
+					Email:<br>
+					<input type="text" name="email" id="boxy" /><br>
+					Contact Number:<br>
+					<input type="text" name="contact" id="boxy" /><br>
+					<input type="hidden" name="confirmation" id="boxy" value="77ebt8pn" /><br>
+					<input type="submit" onclick="document.forms.checkoutForm.submit(); return false;" class="button" value="Checkout" id="boxy"  style="width: 147px; margin-top: 18px;">
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+<?php
+				include('config.php');
+				$result = mysql_query("SELECT * FROM job ORDER BY jobName ASC");
+				while($row = mysql_fetch_array($result))
+				{
+								echo '<tr class="record" id="'.$row['jobID'].'">';
+								echo '<td style="border-left: 1px solid #C1DAD7;">'.$row['confirmation'].'</td>';
+								echo '<td>'.$row['firstname'].' '.$row['lastname'].'</td>';
+								echo '<td><div align="right">'.$row['jobID'].'</div></td>';
+								echo '<td><div align="right">'.$row['jobName'].'</div></td>';
+								echo '<td><div align="right">'.$row['jobDate'].'</div></td>';
+								echo '<td><div align="right">'.$row['jobPlace'].'</div></td>';
+								echo '<td><div align="right">'.$row['departure'].'</div></td>';
+								echo '<td><div align="left">';
+								$rrr=$row['jobID'];
+								$results = mysql_query("SELECT * FROM worker where confirmation='$rrr'");
+				/*while($row1 = mysql_fetch_array($results))
+				{
+								$roomid=$row1['room'];
+								$resulta = mysql_query("SELECT * FROM internet_shop where id='$roomid'");
+								while($rowa = mysql_fetch_array($resulta))
+								{
+								echo $rowa['name'];
+								}
+								echo '&nbsp;&nbsp;&nbsp;'.$row1['qty'].'<br>';
+				}
+								echo '</div></td>';
+								echo '<td><div align="right">'.$row['status'].'</div></td>';
+								echo '<td><div align="center"><a href="#" id="'.$row['confirmation'].'" class="delbutton" title="Click To Delete">delete</a></div></td>';
+								echo '</tr>';
+				}*/
+?>
+
+
+
+
+
+
+    if($counter>0)
+    {
+        print("systemResult=Success");
+        $array = mysql_fetch_array($query);
+
+         while($data = mysql_fetch_array($query))
+        {
+        $jobid  = $data["jobID"];
+        $jobname    = $data["jobName"];
+        $jobdate = $data["jobDate"];
+        $jobplace = $data["jobPlace"];
+
+        }
+    }
+    else
+    {
+        print("systemResult=Error");
+    }
+
+
+#ajax-loader{
+	position:absolute;
+	top:0px;
+	left:0px;
+	visibility:hidden;
+}
+
+#item-list{
+	float:left;
+    height: 500px;
+	width: 490px;
+	padding-top:15px;
+}
+
+a.remove,a.remove:visited{
+	color:red;
+	font-size:10px;
+	text-transform:uppercase;
+}
+
+#total{
+	clear:both;
+	float:right;
+	font-size:10px;
+	font-weight:bold;
+	padding:10px 12px;
+	text-transform:uppercase;
+}
+
+#item-list table{
+	background-color:#F7F7F7;
+	border:1px solid #000000;
+	margin-top:5px;
+	padding:4px;
+}
+
+a.button,a.button:visited{
+	display:none;
+
+	height:29px;
+	width:136px;
+	
+	padding-top:15px;
+	margin:0 auto;
+	overflow:hidden;
+
+	color:white;	
+	font-size:12px;
+	font-weight:bold;
+	text-align:center;
+	text-transform:uppercase;
+	
+	background:url(img/button.png) no-repeat center top;
+}
+
+a.button:hover{
+	background-position:bottom;
+	text-decoration:none;
+}
+
+
+                <span class="psw"><a href="#">Forgot password?</a></span>
+
+
+<div style="width:1000px; height:auto;">
+		<div class="container" style="float: left; width: 464px;">
+		
+			<span class="top-label">
+				<span class="label-txt">Jobs</span>
+			</span>
+			
+			<div class="content-area" style="border-radius:15px;">
+		
+				<div class="content drag-desired">
+					
+					<div class="job"><img src="driver.jpg" alt="Driver" width="200" height="150" class="pngfix" /></div>
+                    
+                    <div class="job"><img src="cleaner.jpg" alt="Cleaner" width="200" height="200" class="pngfix" /></div>
+                    
+                    <div class="job"><img src="gardener.jpg" alt="Gardener" width="200" height="150" class="pngfix" /></div>
+                    
+                    <div class="job"><img src="hometutor.jpg" alt="HomeTutor" width="200" height="150" class="pngfix" /></div>
+                    
+                    <div class="jobt"><img src="housekeeper.jpg" alt="Housekeeper" width="200" height="150" class="pngfix" /></div>
+                    
+                    <div class="job"><img src="waiter.jpg" alt="Waiter" width="200" height="150" class="pngfix" /></div>
+                    
+                    <div class="product"><img src="babysitter.jpg" alt="Babysitter" width="200" height="150" class="pngfix" /></div>
+                    
+                    <div class="product"><img src="retailassitant.jpg" alt="RetailAssistant" width="200" height="150" class="pngfix" /></div> 
+					
+				</div>
+
+			</div>
+		</div>
+</div>
+
+
+
+$output = null;
+if(isset($_POST['submit']))
+{
+    $mysqli = NEW mySQLi("localhost","root","","part_time_job");
+    $search= $mysqli -> real_escape_string($_POST['Search']);
+    $resultSet = $mysqli -> query("Select * from worker WHERE workerName = '$search'");
+    if($resultSet -> num_rows > 0)
+    {
+        while($rows = $resultSet -> fetch_assoc())
+        {
+                $workid = $rows['workerID'];
+                $workname = $row['workerName'];
+                $workmail = $row['workerEmail'];
+
+
+            $output = "WorkersID: $workdid<br />Name: $workname";
+        }
+        
+    }
+    else
+        {
+            $output = "No results";
+        }
+}
+
+
+
+if(mysqli_num_rows($result) > 0)
+{ 
+    if($query = $result)
+    {
+        
+    while($row = mysqli_fetch_array($result))
+        {
+?>
+ <tr>
+     
+ <td align=center><?php echo $row['workerID'];?></td>
+     
+ <td align=center><?php echo $row['workerName'];?></td>
+ <td align=center><?php echo $row['workerEmail'];?></td>
+ <td align=center><?php echo $row['jobID'];?></td>
+ <td align=center><?php echo $row['jobName'];?> </td>
+ </tr>
+ <?php
+ // looping close
+        }
+    }
+}
+
+
+
+<html>
+<body align=center>
+<?php
+//Connection to database
+include 'config.php';
+$query="Select * from worker w,job j Where w.jobID = j.jobID";
+$result = mysqli_query( $link,$query) or die("Query failed");
+$detail='';
+//SQL statement for checking
+?>
+<table align="center" border="1px" style="width:600px;line-height:40px;">
+
+    <tr>
+        <th colspan="4"><h2>Worker Full Information</h2></th>
+    </tr>
+    <t>
+    
+        <th> Worker ID </th>
+        <th> Worker Name </th>
+        <th> Worker Email </th>
+        <th> Job ID </th>
+        
+    </t>
+    
+<?php
+//data looping
+
+if(isset($_POST['id']))
+{
+    $detail = $_POST['id'];
+    $query =  "Select * from worker where workerID like '$detail' ";
+    $result = mysqli_query( $link,$query)or die("<br>could not search!");
+    $count = mysqli_num_rows($result);
+    if( $count != 0)
+    {
+        while($row = mysqli_fetch_array($result)) 
+            {
+            $name = $row['workerName'];
+            $id = $row['workerEmail'];
+            
+            }
+    }
+    else
+    {
+        $output = 'There was no search result!';
+    }
+
+}
+print $detail;
+?>
+    
+ <td align=center><?php echo $detail;?> </td>
+</table>
+
+<p>back to <a href="view.php">view</a> or <a href="adminMenu.php"> Menu</a></p>
+    </body>
+</html>
+
+
+
+<?php
+include 'config.php';
+$con = $mysql;
+mysqli_select_db($con,'part_time_job');
+
+$query="SELECT * FROM  worker WHERE workerID='$id'";
+$sql = "UPDATE worker SET jobID='$_POST[id]";
+
+        if(mysqli_query($con,$sql))
+            header("refresh:1; url=bookjob.php");
+        else
+            echo "Not Updated";
+
+?>
+
+<?php
+
+    if(!isset($_GET['id']))
+    {
+        header("Location: index.html");
+        exit();
+    }
+    
+    
+    $id = $_POST['id'];
+    $url = "bookingjob.php?id=" .$id;
+    echo "Hello $id";
+?>
+
+
+
+<?php
+
+require "config.php";
+
+function getUserData($id)
+{
+    $array = array();
+    $q = mysql_query("SELECT * FROM worker WHERE workerID = ".$id);
+        
+        while($r = mysql_fetch_assoc($q))
+        {
+            $array['id'] = $r['workerID'];
+            $array['username'] = $r['workerName'];
+        }
+    return $array;
+}
+function getId($username)
+{
+    $q = my_sql_query("SELECT workerID FROM worker WHERE workerName=".$username);
+        while($r = mysql_fetch_array($q))
+        {
+            return $r['workerID'];
+        }
+}
+?>
+
+
+                session_start();
+                require "bookingjob.php";
+                ?>     
+                <?php
+                if(isset($_['id']))
+                {
+                    $id = $_POST['id'];
+                    $url = "bookingjob.php?id=" .$id;
+                    header('Location: '.$url);
+                    exit();
+                }
+
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Background Image</h2>
+
+<h1 align="center">YOU ARE HIRED!!</h1>
+    
+<img src="JIM_2329.JPG" style="width:1024px;height:768px;">
+
+</body>
+</html>
+
+
+<html><head>
+<meta charset="utf-8">
+        <title> Student Part Time Job</title>
+        <link rel="stylesheet" type="text/css" href="style2.css">
+        </head><body><div class="bg"></div>
+    
+    
+        <header>
+            <div class="row">
+            <ul class="main-nav">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="">SERVICE</a></li>
+                <li><a href="">CONTACT</a></li>
+                <li><a href="admin.php">ADMIN</a></li>
+            </ul>
+            </div>
+            
+            <div class="hero">
+            <h1>are you ready?</h1>
+                <div class="button">
+                <a href="provide.html" class="btn btn-one">provide job</a>
+                <a href="interface.html" class="btn btn-two">find job</a>
+                </div>
+            </div>
+        </header>
+        
+        
+    
+</body></html>
+
+<html>
+    <head>
+<meta charset="utf-8">
+        <title> Student Part Time Job</title>
+        <link rel="stylesheet" type="text/css" href="style2.css" />
+        <div class="bg"></div>
+    </head>
+    <body align="center">
+        <header>
+            <div class="row">
+            <ul class="main-nav">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="">ABOUT</a></li>
+                <li><a href="">CONTACT</a></li>
+                <li><a href="adminLogin.html">ADMIN</a></li>
+            </ul>
+            
+            
+            <div class="hero">
+            <h1>What are you seeking for?</h1>
+                <div class="button">
+                <a href="provide.html" class="btn btn-one">provide job</a>
+                <a href="interface.html" class="btn btn-two">find job</a>
+                </div>
+            </div>
+                </div>
+        </header>
+        
+        
+    </body>
+</html>
+
+
+
+
+
+<?php
+$databaseHost = "localhost";
+$databaseUsername = "root";
+$databasePassword = "";
+$databaseName = "part_time_job";
+
+$mysql = mysqli_connect ($databaseHost,$databaseUsername,$databasePassword,$databaseName);
+$link = mysqli_connect($databaseHost,$databaseUsername,$databasePassword,$databaseName)or die("Could not connect");
+//connection to database
+$db = mysqli_select_db( $link,"part_time_job")or die("Could not select
+database");
+if(!$mysql)
+{
+    echo "Connection Failed";
+}
+else
+{
+    //echo "Connection Successfull";
+}
+    
+?>

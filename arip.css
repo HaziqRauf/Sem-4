@@ -1,0 +1,55 @@
+@charset "utf-8"
+
+body{
+	font-family: 'Raleway', sans-serif;
+}
+
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+#nav{
+	background: black;
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+}
+
+#nav h1{
+	float: left;
+}
+
+#nav h1 a{
+	text-decoration: none;
+	color: white;
+	margin-left: 25px;
+	font-family: 'Dancing Script', cursive;
+
+}
+
+#nav ul{
+	float: right;
+}
+
+#nav ul li{
+	text-decoration: none;
+	list-style-type: none;
+	display: inline-block;
+}
+
+#nav ul li a{
+	text-decoration: none;
+	color: white;
+	padding: 25px;
+	font-family: 'Open Sans', sans-serif;
+
+}
+
+#nav ul li :hover{
+	background: #004DFF;
+	transition: all ease-in-out 0.40s;
+}
+
+#s1{
+	font-size: 65px;
